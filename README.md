@@ -61,6 +61,7 @@
   - [数学(math)](#数学math)
   - [日期和时间(date and times)](#日期和时间date-and-times)
   - [数据压缩(data compression)](#数据压缩data-compression)
+- [项目框架(Project structure)](#项目框架project-structure)
 - [Reference](#reference)
 # 前言
 - 什么是Python
@@ -3546,6 +3547,52 @@ def test_zlib():
     assert zlib_decompressed_string == b'witch which has which witches wrist watch'
 
     assert zlib.crc32(string) == 226805979
+```
+
+# 项目框架(Project structure)
+
+```python
+An example structure for a python project:
+my_project/
+    README.md
+    requirements.txt
+    setup.py
+
+    src/
+        my_project/
+            __init__.py
+            my_module.py
+            other_module.py
+
+            my_pkg1/
+                __init__.py
+                my_third_module.py
+
+    tests/
+        conftest.py
+        test_module.py
+        test_other_module.py
+
+        my_pkg1/
+            test_my_third_module.py
+```
+```python
+
+* requirements.txt lists the Python packages from which my_project depends on.
+    * these can be installed by running pip install -r requirements
+* setup.py is a file in which you include relevant information about your project and the file is also used for packaging your project. Here's a minimal example of a setup.py:
+
+'''Minimal setup.py file'''
+
+from setuptools import setup, find_packages
+
+setup(
+    name='my_project',
+    version='0.1',
+    packages=find_packages(where="src"),
+    package_dir={"": "src"})
+
+* Once you have the setup.py file in place, you can install your project in editable mode by running pip install -e . in the root directory of your project. In editable mode the installed version is updated when you make changes to the source code files.
 ```
 
 # Reference
